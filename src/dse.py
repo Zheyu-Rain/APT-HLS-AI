@@ -35,7 +35,7 @@ import numpy as np
 import random
 from pprint import pprint
 import helper
-
+import pandas as pd
 
 TARGET = ['perf', 'util-DSP', 'util-BRAM', 'util-LUT', 'util-FF']
 def persist(database, db_file_path) -> bool:
@@ -898,6 +898,20 @@ class ExhaustiveExplorer(Explorer):
 
         self.log.info('No more points to be explored, stop.')
     
+    # Function to modify specified columns for a row with a given ID
+    def modify_row_by_id(df, row_id, valid, perf, lut, dsp, ff, bram):
+        # Load the CSV file into a pandas DataFrame
+        
+        # Check if the given ID exists in the DataFrame
+        if row_id in df['id'].values:
+            # Locate the row with the given ID
+            df.loc[df['id'] == row_id, ['valid', 'perf', 'util-LUT', 'util-DSP', 'util-FF', 'util-BRAM']] = [valid, perf, lut, dsp, ff, bram]
+            
+            # Save the modified DataFrame back to the CSV file
+            df.to_csv(csv_file, index=False)
+            print(f"Row with ID {row_id} has been successfully updated.")
+        else:
+            print(f"Row with ID {row_id} not found.")
         
     def run(self) -> None:
         #pylint:disable=missing-docstring
@@ -908,7 +922,9 @@ class ExhaustiveExplorer(Explorer):
         timer = time.time()
         duplicated_iters = 0
         # 1294,__version__-v21.__kernel__-doitgen-red.__PARA__L3-1.__PIPE__L0-NA.__PIPE__L1-NA.__PIPE__L2-NA.__TILE__L0-1.__TILE__L1-8.__TILE__L2-1  [{'__PARA__L2': 2, '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': 8, '__TILE__L1': 1, '__TILE__L2': 1, '__TILE__L3': 1}],
-        input_list = [[{'__PARA__L2': 2, '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': 8, '__TILE__L1': 1, '__TILE__L2': 1, '__TILE__L3': 1}]]
+        input_list, ids = helper.parse(self.kernel_name, "../test.csv")
+        df = pd.read_csv("sample_submission.csv")
+        #[[{'__PARA__L2': 2, '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': 8, '__TILE__L1': 1, '__TILE__L2': 1, '__TILE__L3': 1}]]
         # while (time.time() - timer) < self.timeout and self.explored_point < 75000:
         for elem in input_list:
             try:
@@ -922,13 +938,15 @@ class ExhaustiveExplorer(Explorer):
             for r in results:
                 if isinstance(r, Result):
                     attrs = vars(r)
+                    modify_row_by_id(csv_file, row_id, valid, perf, lut, dsp, ff, bram) # Change it
                     self.log.debug(f'Evaluating Design')
                     self.log.debug(', '.join("%s: %s" % item for item in attrs.items()))
-                    _, updated = self.update_best(r)
-                    if FLAGS.plot_dse:
-                        self.extract_plot_data(r, updated)
-            self.explored_point += len(results)
+                    #_, updated = self.update_best(r)
+                    #if FLAGS.plot_dse:
+                    #    self.extract_plot_data(r, updated)
+            #self.explored_point += len(results)
 
             print(f'*********Validity: {valid}')
-            
+
+        df.to_csv("../result.csv") # Saving modified submission file    
         self.log.info(f'Explored {self.explored_point} points')
