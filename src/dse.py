@@ -34,6 +34,7 @@ import numpy as np
 
 import random
 from pprint import pprint
+import helper
 
 
 TARGET = ['perf', 'util-DSP', 'util-BRAM', 'util-LUT', 'util-FF']
