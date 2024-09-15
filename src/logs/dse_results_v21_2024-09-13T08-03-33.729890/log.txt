@@ -1,0 +1,135 @@
+Found 1 gexf files under /home/zheyu/HARP/dse_database/generated_graphs/**/processed/**
+[0m] INFO: loading encoder from /home/zheyu/HARP/models/encoders/pragma_as_MLP-encoders.klepto
+[0m] INFO: Working on graph file: /home/zheyu/HARP/dse_database/generated_graphs/machsuite/processed/extended-pseudo-block-connected-hierarchy/gemm-blocked_processed_result.gexf
+gemm-blocked_processed_result
+db_paths for gemm-blocked_:
+../dse_database/machsuite/databases/v21/gemm-blocked_result_updated-0.db
+num keys for gemm-blocked_: 2489 and lv2 keys: 249
+reference point for gemm-blocked_ is 2719745.0
+final valid: 233
+gemm-blocked_ g.variants 233 tot_configs 233
+	ntypes 5 Counter({0: 30290, 1: 28193, 4: 6291, 3: 2097, 2: 1631})
+	itypes 25 Counter({'i32': 10485, 'i32*': 9320, 'load': 7456, 'pseudo_block': 6291, 'br': 5825, 'store': 5126, 'alloca': 3262, 'add': 3262, 'double*': 3262, 'i64': 2563, 'double': 1631, 'double**': 1398, 'icmp': 1165, 'i1': 1165, 'sext': 1165, 'mul': 932, 'PIPELINE': 932, 'TILE': 932, 'getelementptr': 699, 'trunc': 466, '[external]': 233, 'fmul': 233, 'fadd': 233, 'ret': 233, 'PARALLEL': 233})
+	btypes 27 Counter({15: 13980, 12: 10485, 0: 5359, 3: 3495, 6: 3495, 26: 2563, 8: 2330, 2: 2097, 5: 2097, 11: 2097, 16: 2097, 18: 2097, 20: 2097, 22: 2097, 24: 2097, 14: 1631, 1: 932, 4: 932, 7: 932, 10: 932, 13: 932, 23: 932, 25: 932, 9: 466, 17: 466, 19: 466, 21: 466})
+	ftypes 1 Counter({0: 68502})
+	ptypes 4 Counter({'None': 66405, 'ACCEL PIPELINE': 932, 'ACCEL TILE AUTO{<>}': 932, 'ACCEL PARALLEL AUTO{<>}': 233})
+	numerics 5 Counter({0: 65240, 1: 2097, 7: 466, 8: 466, 64: 233})
+edge_index created for gemm-blocked_processed_result
+[0m] INFO: Data(x=[294, 153], edge_index=[2, 1023], edge_attr=[1023, 335], gname='gemm-blocked', key='lv2:__PARA__L2-1.__PIPE__L0-NA.__PIPE__L1-NA.__PIPE__L2-flatten.__PIPE__L3-off.__TILE__L0-1.__TILE__L1-1.__TILE__L2-1.__TILE__L3-1', kernel='gemm-blocked_processed_result', X_contextnids=[294], X_pragmanids=[294], X_pragmascopenids=[294], X_pseudonids=[294], X_icmpnids=[294], X_pragma_per_node=[294, 4], pragmas=[1, 21], perf=[1], actual_perf=[1], kernel_speedup=[1], quality=[1], util_BRAM=[1], util_DSP=[1], util_LUT=[1], util_FF=[1], total_BRAM=[1], total_DSP=[1], total_LUT=[1], total_FF=[1])
+dataset[0].num_features 153
+--- Analyzing distribution of perf_ys (len=233)
+perf_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 1.80	2.65	5.11	5.63	6.26	6.44	6.44	6.44	6.44
+	np.min(data)	 0.939228355884552
+	np.max(data)	 6.438143253326416
+	np.mean(data)	 4.447771094387693
+	np.std(data)	 1.6127697664755352
+perf_ys
+--- Analyzing distribution of quality_ys (len=233)
+quality_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 2486.54	88034.79	3821143.25	32643432.00	10000000000.00	10000000000.00	10000000000.00	10000000000.00	10000000000.00
+	np.min(data)	 0.0
+	np.max(data)	 10000000000.0
+	np.mean(data)	 1978286450.0727937
+	np.std(data)	 3978562292.6834064
+quality_ys
+--- Analyzing distribution of util-BRAM_ys (len=233)
+util-BRAM_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.02	0.02	0.02	0.03	0.03	0.05	0.05	0.05	0.05
+	np.min(data)	 0.009999999776482582
+	np.max(data)	 0.05000000074505806
+	np.mean(data)	 0.024978540374102
+	np.std(data)	 0.009316765464985314
+util-BRAM_ys
+--- Analyzing distribution of util-DSP_ys (len=233)
+util-DSP_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.00	0.20	0.82	2.10	3.29	3.29	3.29	3.29
+	np.min(data)	 0.0
+	np.max(data)	 3.2899999618530273
+	np.mean(data)	 0.7060085784468016
+	np.std(data)	 0.9930625935599815
+util-DSP_ys
+--- Analyzing distribution of util-LUT_ys (len=233)
+util-LUT_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.01	0.10	0.49	0.98	1.51	1.51	1.51	1.51
+	np.min(data)	 0.0
+	np.max(data)	 1.5099999904632568
+	np.mean(data)	 0.34188841129833025
+	np.std(data)	 0.4568588820146451
+util-LUT_ys
+--- Analyzing distribution of util-FF_ys (len=233)
+util-FF_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.00	0.06	0.33	0.66	0.88	0.88	0.88	0.88
+	np.min(data)	 0.0
+	np.max(data)	 0.8799999952316284
+	np.mean(data)	 0.20472102964001151
+	np.std(data)	 0.27182744095440525
+util-FF_ys
+--- Analyzing distribution of total-BRAM_ys (len=233)
+total-BRAM_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 90.00	90.00	122.00	138.00	154.00	218.00	218.00	218.00	218.00
+	np.min(data)	 46.0
+	np.max(data)	 218.0
+	np.mean(data)	 120.14592274678111
+	np.std(data)	 40.2105530650426
+total-BRAM_ys
+--- Analyzing distribution of total-DSP_ys (len=233)
+total-DSP_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.00	1408.00	5632.00	14417.92	22528.00	22528.00	22528.00	22528.00
+	np.min(data)	 0.0
+	np.max(data)	 22528.0
+	np.mean(data)	 4849.596566523605
+	np.std(data)	 6800.136387826013
+total-DSP_ys
+--- Analyzing distribution of total-LUT_ys (len=233)
+total-LUT_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	11865.00	123383.00	589095.00	1163680.56	1796695.61	1796700.00	1796700.00	1796700.00
+	np.min(data)	 0.0
+	np.max(data)	 1796700.0
+	np.mean(data)	 409116.8927038627
+	np.std(data)	 542320.2786244784
+total-LUT_ys
+--- Analyzing distribution of total-FF_ys (len=233)
+total-FF_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.00	143087.00	795296.00	1566647.56	2101343.00	2101343.00	2101343.00	2101343.00
+	np.min(data)	 0.0
+	np.max(data)	 2101343.0
+	np.mean(data)	 491769.24463519314
+	np.std(data)	 649055.4006620077
+total-FF_ys
+--- Analyzing distribution of actual_perf_ys (len=233)
+actual_perf_ys 233
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 1714.00	4067.00	8387.00	255123.00	821995.00	2719745.00	2719745.00	2719745.00	2719745.00
+	np.min(data)	 1330.0
+	np.max(data)	 2719745.0
+	np.mean(data)	 223642.0128755365
+	np.std(data)	 516818.8744533124
+actual_perf_ys
+Saving 233 to disk /home/zheyu/HARP/save/harp/v21_MLP-True-extended-pseudo-block-connected-hierarchy-regression_edge-position-True_norm_with-invalid_False-normalization_speedup-log2_tag_whole-machsuite-poly_perfutil-DSPutil-BRAMutil-LUTutil-FF; Deleting existing files
+gemm-blocked_processed_result has initial dim 9
+[0m] INFO: #################################################################
+[0m] INFO: Now processing extended-pseudo-block-connected-hierarchy graph
+[0m] INFO: *****************************************************************
+[0m] INFO: Starting DSE for gemm-blocked
+[0m] INFO: Loading configurations
+[0m] INFO: Use default value for search.algorithm.gradient.compute-bound-order: ['PARALLEL', 'PIPELINE']
+[0m] INFO: Use default value for search.algorithm.gradient.memory-bound-order: ['INTERFACE', 'CACHE', 'PIPELINE', 'TILE', 'TILING']
+[0m] INFO: Design space contains 2314 valid design points
+[0m] INFO: Finished design space compilation
+[0m] INFO: loaded /home/zheyu/HARP/models/v21/regression_pragma_as_MLP_2l-m-2l-p_model_state_dict.pth
+[0m] INFO: graph path /home/zheyu/HARP/dse_database/generated_graphs/machsuite/processed/extended-pseudo-block-connected-hierarchy/gemm-blocked_processed_result.gexf
+[0m] INFO: loaded /home/zheyu/HARP/models/v21/class_pragma_as_MLP_2l-m-2l-p_model_state_dict.pth
+[0m] INFO: Done init
+[0m] INFO: Found a better result at 0: Quality 4.1e-01, Perf 2.4e+00
+[0m] INFO: point: {'__PARA__L2': tensor([2], device='cuda:0'), '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': tensor([8], device='cuda:0'), '__TILE__L1': tensor([1], device='cuda:0'), '__TILE__L2': tensor([1], device='cuda:0'), '__TILE__L3': tensor([1], device='cuda:0')}, ret_code: RetCode.PASS, valid: True, path: None, quality: 0.411604158529716, perf: 2.429518699645996, res_util: {'util-BRAM': 0.018364235758781433, 'util-DSP': 0.02450740337371826, 'util-LUT': 0.03705444186925888, 'util-FF': 0.021395787596702576, 'total-BRAM': 0, 'total-DSP': 0, 'total-LUT': 0, 'total-FF': 0}, eval_time: 0.0, actual_perf: 2.429518699645996

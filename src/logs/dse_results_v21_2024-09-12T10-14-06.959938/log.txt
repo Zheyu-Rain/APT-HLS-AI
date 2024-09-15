@@ -1,0 +1,120 @@
+Found 1 gexf files under /home/zheyu/HARP/dse_database/generated_graphs/**/processed/**
+[0m] INFO: loading encoder from /home/zheyu/HARP/models/encoders/pragma_as_MLP-encoders.klepto
+[0m] INFO: Working on graph file: /home/zheyu/HARP/dse_database/generated_graphs/poly/processed/extended-pseudo-block-connected-hierarchy/3mm_processed_result.gexf
+3mm_processed_result
+db_paths for 3mm_:
+../dse_database/poly/databases/v21/3mm_result_updated-0.db
+num keys for 3mm_: 2403 and lv2 keys: 677
+reference point for 3mm_ is 2824203.0
+final valid: 571
+3mm_ g.variants 571 tot_configs 571
+	ntypes 5 Counter({1: 133614, 0: 127904, 4: 21698, 3: 11991, 2: 5139})
+	itypes 30 Counter({'i32*': 37115, 'load': 35973, 'i32': 35973, 'pseudo_block': 21698, 'store': 20556, 'br': 20556, 'i64': 14275, 'sext': 13704, 'getelementptr': 13704, 'double': 9136, 'alloca': 8565, 'double*': 8565, '[70 x double]*': 8565, '[50 x double]*': 5710, '[70 x double]**': 5139, 'icmp': 5139, 'i1': 5139, 'add': 5139, 'PARALLEL': 5139, '[50 x double]**': 3426, 'PIPELINE': 3426, 'TILE': 3426, '[60 x double]*': 1713, 'fmul': 1713, 'fadd': 1713, '[80 x double]*': 1713, '[60 x double]**': 1142, '[80 x double]**': 1142, '[external]': 571, 'ret': 571})
+	btypes 38 Counter({6: 37115, 18: 37115, 30: 37115, 0: 25124, 4: 12562, 16: 12562, 28: 12562, 37: 12562, 1: 5710, 3: 5710, 13: 5710, 15: 5710, 25: 5710, 27: 5710, 7: 5139, 9: 5139, 11: 5139, 19: 5139, 21: 5139, 23: 5139, 31: 5139, 33: 5139, 35: 5139, 5: 4568, 17: 4568, 29: 4568, 2: 2284, 12: 2284, 14: 2284, 24: 2284, 26: 2284, 8: 1142, 10: 1142, 20: 1142, 22: 1142, 32: 1142, 34: 1142, 36: 1142})
+	ftypes 1 Counter({0: 300346})
+	ptypes 4 Counter({'None': 288355, 'ACCEL PARALLEL AUTO{<>}': 5139, 'ACCEL PIPELINE': 3426, 'ACCEL TILE AUTO{<>}': 3426})
+	numerics 7 Counter({0: 283216, 1: 11991, 50: 1713, 40: 1142, 70: 1142, 60: 571, 80: 571})
+edge_index created for 3mm_processed_result
+[0m] INFO: Data(x=[526, 153], edge_index=[2, 1850], edge_attr=[1850, 335], gname='3mm', key='lv2:__PARA__L0-1.__PARA__L1-1.__PARA__L2-1.__PARA__L3-1.__PARA__L4-1.__PARA__L5-1.__PARA__L6-1.__PARA__L7-1.__PARA__L8-1.__PIPE__L0-flatten.__PIPE__L1-off.__PIPE__L2-off.__PIPE__L3-off.__PIPE__L4-flatten.__PIPE__L5-off.__TILE__L0-1.__TILE__L1-1.__TILE__L2-1.__TILE__L3-1.__TILE__L4-1.__TILE__L5-1', kernel='3mm_processed_result', X_contextnids=[526], X_pragmanids=[526], X_pragmascopenids=[526], X_pseudonids=[526], X_icmpnids=[526], X_pragma_per_node=[526, 4], pragmas=[1, 21], perf=[1], actual_perf=[1], kernel_speedup=[1], quality=[1], util_BRAM=[1], util_DSP=[1], util_LUT=[1], util_FF=[1], total_BRAM=[1], total_DSP=[1], total_LUT=[1], total_FF=[1])
+dataset[0].num_features 153
+--- Analyzing distribution of perf_ys (len=571)
+perf_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 1.28	1.52	1.81	2.66	2.91	3.07	4.90	4.90	4.90
+	np.min(data)	 0.9120421409606934
+	np.max(data)	 4.902625560760498
+	np.mean(data)	 1.9834711636219258
+	np.std(data)	 0.6178275150388505
+perf_ys
+--- Analyzing distribution of quality_ys (len=571)
+quality_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 -302919.04	4178479.50	4986663.50	7713086.30	10000000000.00	10000000000.00	10000000000.00	10000000000.00	10000000000.00
+	np.min(data)	 -618915.8125
+	np.max(data)	 10000000000.0
+	np.mean(data)	 1737853045.1394877
+	np.std(data)	 3783901553.8571415
+quality_ys
+--- Analyzing distribution of util-BRAM_ys (len=571)
+util-BRAM_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.02	0.02	0.03	0.04	0.05	0.07	0.39	0.39	0.39
+	np.min(data)	 0.009999999776482582
+	np.max(data)	 0.38999998569488525
+	np.mean(data)	 0.03348511322067101
+	np.std(data)	 0.018713650767209836
+util-BRAM_ys
+--- Analyzing distribution of util-DSP_ys (len=571)
+util-DSP_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.02	0.12	0.13	4.80	4.93	9.60	9.60	9.60
+	np.min(data)	 0.0
+	np.max(data)	 9.600000381469727
+	np.mean(data)	 0.8242732281168684
+	np.std(data)	 1.727972141157191
+util-DSP_ys
+--- Analyzing distribution of util-LUT_ys (len=571)
+util-LUT_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.02	0.05	0.09	0.12	2.11	2.20	4.21	4.21	4.21
+	np.min(data)	 0.009999999776482582
+	np.max(data)	 4.210000038146973
+	np.mean(data)	 0.39735551210749903
+	np.std(data)	 0.7453314108198895
+util-LUT_ys
+--- Analyzing distribution of util-FF_ys (len=571)
+util-FF_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.02	0.05	0.06	1.37	1.49	2.58	2.58	2.58
+	np.min(data)	 0.0
+	np.max(data)	 2.5799999237060547
+	np.mean(data)	 0.24415061251960055
+	np.std(data)	 0.49018217864606345
+util-FF_ys
+--- Analyzing distribution of total-BRAM_ys (len=571)
+total-BRAM_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 110.00	126.80	154.00	190.00	222.96	325.55	1686.00	1686.00	1686.00
+	np.min(data)	 86.0
+	np.max(data)	 1686.0
+	np.mean(data)	 166.05954465849388
+	np.std(data)	 80.05193121256329
+total-BRAM_ys
+--- Analyzing distribution of total-DSP_ys (len=571)
+total-DSP_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	150.00	881.00	924.80	32855.96	33733.00	65707.00	65707.00	65707.00
+	np.min(data)	 0.0
+	np.max(data)	 65707.0
+	np.mean(data)	 5662.064798598949
+	np.std(data)	 11821.442998127292
+total-DSP_ys
+--- Analyzing distribution of total-LUT_ys (len=571)
+total-LUT_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 25172.92	59517.40	117949.00	146842.40	2505447.32	2609996.26	4983802.00	4983802.00	4983802.00
+	np.min(data)	 17717.0
+	np.max(data)	 4983802.0
+	np.mean(data)	 475110.45183887915
+	np.std(data)	 881460.2250060932
+total-LUT_ys
+--- Analyzing distribution of total-FF_ys (len=571)
+total-FF_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	50247.00	118536.00	145809.00	3261726.88	3535852.42	6120803.00	6120803.00	6120803.00
+	np.min(data)	 0.0
+	np.max(data)	 6120803.0
+	np.mean(data)	 588147.2556917688
+	np.std(data)	 1160490.2928867762
+total-FF_ys
+--- Analyzing distribution of actual_perf_ys (len=571)
+actual_perf_ys 571
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 176908.00	250588.00	817499.00	1210694.20	1699798.80	2464725.05	2824203.00	2824203.00	2824203.00
+	np.min(data)	 11177.0
+	np.max(data)	 2824203.0
+	np.mean(data)	 867595.2994746059
+	np.std(data)	 602560.1675490525
+actual_perf_ys
+Saving 571 to disk /home/zheyu/HARP/save/harp/v21_MLP-True-extended-pseudo-block-connected-hierarchy-regression_edge-position-True_norm_with-invalid_False-normalization_speedup-log2_tag_whole-machsuite-poly_perfutil-DSPutil-BRAMutil-LUTutil-FF; Deleting existing files
+3mm_processed_result has initial dim 21

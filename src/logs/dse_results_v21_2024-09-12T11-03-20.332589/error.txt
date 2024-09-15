@@ -1,0 +1,8 @@
+[0m] ERROR: "options" error: Illegal option list [x for x in ['off','']
+[0m] ERROR: "order" should have one and only one variable in 0 but found 0
+[0m] ERROR: "order" should have one and only one variable in 0 but found 0
+[0m] ERROR: "order" should have one and only one variable in 0 but found 0
+[0m] ERROR: "options" error: Illegal option list [x for x in [1,2,4,8] if x==1 or __TILE__L0==1']
+[0m] ERROR: Parameter __TILE__L2 depends on __TILE__L1 which is undefined or not allowed
+[0m] ERROR: Parameter __TILE__L3 depends on __TILE__L1 which is undefined or not allowed
+[0m] ERROR: Design space has 2 errors

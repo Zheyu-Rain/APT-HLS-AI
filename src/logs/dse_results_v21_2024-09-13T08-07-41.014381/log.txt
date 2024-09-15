@@ -1,0 +1,141 @@
+Found 1 gexf files under /home/zheyu/HARP/dse_database/generated_graphs/**/processed/**
+[0m] INFO: loading encoder from /home/zheyu/HARP/models/encoders/pragma_as_MLP-encoders.klepto
+[0m] INFO: Working on graph file: /home/zheyu/HARP/dse_database/generated_graphs/poly/processed/extended-pseudo-block-connected-hierarchy/doitgen-red_processed_result.gexf
+doitgen-red_processed_result
+db_paths for doitgen-red_:
+../dse_database/poly/databases/v21/doitgen-red_result_updated-0.db
+num keys for doitgen-red_: 733 and lv2 keys: 132
+reference point for doitgen-red_ is 2778775.0
+final valid: 94
+doitgen-red_ g.variants 94 tot_configs 94
+	ntypes 5 Counter({0: 10246, 1: 10058, 4: 2068, 2: 658, 3: 658})
+	itypes 27 Counter({'i32*': 2820, 'load': 2820, 'i32': 2820, 'pseudo_block': 2068, 'br': 1880, 'store': 1598, 'double*': 1128, 'i64': 1034, 'sext': 940, 'getelementptr': 940, 'alloca': 752, 'double': 752, 'icmp': 470, 'i1': 470, '[20 x [30 x double]]*': 470, '[30 x double]*': 470, 'add': 470, '[20 x [30 x double]]**': 282, 'double**': 282, 'PIPELINE': 282, 'TILE': 282, '[30 x double]**': 188, '[external]': 94, 'fmul': 94, 'fadd': 94, 'ret': 94, 'PARALLEL': 94})
+	btypes 22 Counter({8: 5264, 14: 3666, 0: 1786, 10: 1504, 21: 1034, 1: 846, 3: 846, 5: 846, 9: 846, 11: 846, 15: 846, 17: 846, 19: 846, 7: 752, 13: 658, 6: 564, 2: 376, 4: 376, 12: 376, 16: 188, 18: 188, 20: 188})
+	ftypes 1 Counter({0: 23688})
+	ptypes 4 Counter({'None': 23030, 'ACCEL PIPELINE': 282, 'ACCEL TILE AUTO{<>}': 282, 'ACCEL PARALLEL AUTO{<>}': 94})
+	numerics 5 Counter({0: 22560, 1: 658, 30: 282, 25: 94, 20: 94})
+edge_index created for doitgen-red_processed_result
+[0m] INFO: Data(x=[252, 153], edge_index=[2, 878], edge_attr=[878, 335], gname='doitgen-red', key='lv2:__PARA__L3-1.__PIPE__L0-off.__PIPE__L1-NA.__PIPE__L2-NA.__TILE__L0-1.__TILE__L1-2.__TILE__L2-1', kernel='doitgen-red_processed_result', X_contextnids=[252], X_pragmanids=[252], X_pragmascopenids=[252], X_pseudonids=[252], X_icmpnids=[252], X_pragma_per_node=[252, 4], pragmas=[1, 21], perf=[1], actual_perf=[1], kernel_speedup=[1], quality=[1], util_BRAM=[1], util_DSP=[1], util_LUT=[1], util_FF=[1], total_BRAM=[1], total_DSP=[1], total_LUT=[1], total_FF=[1])
+dataset[0].num_features 153
+--- Analyzing distribution of perf_ys (len=94)
+perf_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.94	1.31	1.66	2.03	3.49	4.65	4.65	4.65	4.65
+	np.min(data)	 0.9237395524978638
+	np.max(data)	 4.651834964752197
+	np.mean(data)	 2.0425221641012965
+	np.std(data)	 1.0634673855277268
+perf_ys
+--- Analyzing distribution of quality_ys (len=94)
+quality_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 -3636522.25	609948.25	29234574.00	10000000000.00	10000000000.00	10000000000.00	10000000000.00	10000000000.00	10000000000.00
+	np.min(data)	 -19537476.0
+	np.max(data)	 10000000000.0
+	np.mean(data)	 3414152307.706117
+	np.std(data)	 4731437965.30909
+quality_ys
+--- Analyzing distribution of util-BRAM_ys (len=94)
+util-BRAM_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.01	0.01	0.01	0.02	0.02	0.10	0.10	0.10	0.10
+	np.min(data)	 0.009999999776482582
+	np.max(data)	 0.10000000149011612
+	np.mean(data)	 0.018404255066304765
+	np.std(data)	 0.017882786025089793
+util-BRAM_ys
+--- Analyzing distribution of util-DSP_ys (len=94)
+util-DSP_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.00	0.00	0.01	1.43	1.43	1.43	1.43	1.43
+	np.min(data)	 0.0
+	np.max(data)	 1.4299999475479126
+	np.mean(data)	 0.15936169638595682
+	np.std(data)	 0.4386022330796605
+util-DSP_ys
+--- Analyzing distribution of util-LUT_ys (len=94)
+util-LUT_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.01	0.01	0.02	0.03	0.61	0.66	0.68	0.68	0.68
+	np.min(data)	 0.009999999776482582
+	np.max(data)	 0.6800000071525574
+	np.mean(data)	 0.08329787311401773
+	np.std(data)	 0.1859900983202129
+util-LUT_ys
+--- Analyzing distribution of util-FF_ys (len=94)
+util-FF_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.01	0.01	0.03	0.39	0.48	0.51	0.51	0.51
+	np.min(data)	 0.0
+	np.max(data)	 0.5099999904632568
+	np.mean(data)	 0.055744679684334615
+	np.std(data)	 0.12374036882977968
+util-FF_ys
+--- Analyzing distribution of total-BRAM_ys (len=94)
+total-BRAM_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 46.00	49.80	84.00	114.00	118.00	446.00	446.00	446.00	446.00
+	np.min(data)	 46.0
+	np.max(data)	 446.0
+	np.mean(data)	 95.40425531914893
+	np.std(data)	 79.90144449855764
+total-BRAM_ys
+--- Analyzing distribution of total-DSP_ys (len=94)
+total-DSP_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	0.00	0.00	133.00	9810.00	9811.00	9811.00	9811.00	9811.00
+	np.min(data)	 0.0
+	np.max(data)	 9811.0
+	np.mean(data)	 1108.531914893617
+	np.std(data)	 3004.291886342461
+total-DSP_ys
+--- Analyzing distribution of total-LUT_ys (len=94)
+total-LUT_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 15162.00	15665.00	25491.00	41726.00	726792.00	788510.54	813705.00	813705.00	813705.00
+	np.min(data)	 12096.0
+	np.max(data)	 813705.0
+	np.mean(data)	 103828.75531914894
+	np.std(data)	 220500.37826762002
+total-LUT_ys
+--- Analyzing distribution of total-FF_ys (len=94)
+total-FF_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 0.00	27174.00	33232.00	74491.00	923690.00	1131969.52	1213516.00	1213516.00	1213516.00
+	np.min(data)	 0.0
+	np.max(data)	 1213516.0
+	np.mean(data)	 139511.25531914894
+	np.std(data)	 291539.75202578114
+total-FF_ys
+--- Analyzing distribution of actual_perf_ys (len=94)
+actual_perf_ys 94
+	prob     	 0.1	0.25	0.5	0.75	0.9	0.99	0.999	0.9999	0.99999
+	quantiles	 80372.50	600292.00	1002394.00	1621150.00	2721291.00	2778775.00	2778775.00	2778775.00	2778775.00
+	np.min(data)	 15824.0
+	np.max(data)	 2778775.0
+	np.mean(data)	 1104793.5319148935
+	np.std(data)	 879433.0783200641
+actual_perf_ys
+Saving 94 to disk /home/zheyu/HARP/save/harp/v21_MLP-True-extended-pseudo-block-connected-hierarchy-regression_edge-position-True_norm_with-invalid_False-normalization_speedup-log2_tag_whole-machsuite-poly_perfutil-DSPutil-BRAMutil-LUTutil-FF; Deleting existing files
+doitgen-red_processed_result has initial dim 7
+[0m] INFO: #################################################################
+[0m] INFO: Now processing extended-pseudo-block-connected-hierarchy graph
+[0m] INFO: *****************************************************************
+[0m] INFO: Starting DSE for doitgen-red
+[0m] INFO: Loading configurations
+[0m] INFO: Use default value for search.algorithm.gradient.compute-bound-order: ['PARALLEL', 'PIPELINE']
+[0m] INFO: Use default value for search.algorithm.gradient.memory-bound-order: ['INTERFACE', 'CACHE', 'PIPELINE', 'TILE', 'TILING']
+[0m] INFO: Design space contains 595 valid design points
+[0m] INFO: Finished design space compilation
+[0m] INFO: loaded /home/zheyu/HARP/models/v21/regression_pragma_as_MLP_2l-m-2l-p_model_state_dict.pth
+[0m] INFO: graph path /home/zheyu/HARP/dse_database/generated_graphs/poly/processed/extended-pseudo-block-connected-hierarchy/doitgen-red_processed_result.gexf
+[0m] INFO: loaded /home/zheyu/HARP/models/v21/class_pragma_as_MLP_2l-m-2l-p_model_state_dict.pth
+[0m] INFO: Done init
+[0m] INFO: Found a better result at 0: Quality 1.0e+00, Perf 9.8e-01
+[0m] INFO: point: {'__PIPE__L0': '', '__PIPE__L1': '', '__PIPE__L2': '', '__PARA__L3': tensor([1], device='cuda:0'), '__TILE__L0': tensor([1], device='cuda:0'), '__TILE__L1': tensor([8], device='cuda:0'), '__TILE__L2': tensor([1], device='cuda:0')}, ret_code: RetCode.PASS, valid: True, path: None, quality: 1.0207442594293665, perf: 0.9796773195266724, res_util: {'util-BRAM': 0.019358694553375244, 'util-DSP': 0.011249542236328125, 'util-LUT': 0.01860036700963974, 'util-FF': 0.0070676058530807495, 'total-BRAM': 0, 'total-DSP': 0, 'total-LUT': 0, 'total-FF': 0}, eval_time: 0.0, actual_perf: 0.9796773195266724
+[0m] INFO: Explored 1 points
+[0m] INFO: Best Results Found:
+[0m] INFO: Design 1
+[0m] INFO: point: {'__PIPE__L0': '', '__PIPE__L1': '', '__PIPE__L2': '', '__PARA__L3': tensor([1], device='cuda:0'), '__TILE__L0': tensor([1], device='cuda:0'), '__TILE__L1': tensor([8], device='cuda:0'), '__TILE__L2': tensor([1], device='cuda:0')}, ret_code: RetCode.PASS, valid: True, path: None, quality: 1.0207442594293665, perf: 0.9796773195266724, res_util: {'util-BRAM': 0.019358694553375244, 'util-DSP': 0.011249542236328125, 'util-LUT': 0.01860036700963974, 'util-FF': 0.0070676058530807495, 'total-BRAM': 0, 'total-DSP': 0, 'total-LUT': 0, 'total-FF': 0}, eval_time: 0.0, actual_perf: 0.9796773195266724
+[0m] INFO: *****************************************************************
+[0m] INFO: 

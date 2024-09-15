@@ -1,0 +1,16 @@
+Found 1 gexf files under /home/zheyu/HARP/dse_database/generated_graphs/**/processed/**
+[0m] INFO: loading encoder from /home/zheyu/HARP/models/encoders/pragma_as_MLP-encoders.klepto
+[0m] INFO: Working on graph file: /home/zheyu/HARP/dse_database/generated_graphs/machsuite/processed/extended-pseudo-block-connected-hierarchy/gemm-blocked_processed_result.gexf
+gemm-blocked_processed_result
+db_paths for gemm-blocked_:
+num keys for gemm-blocked_: 0 and lv2 keys: 0
+did not find reference point for gemm-blocked_ with 0 points
+final valid: 0
+gemm-blocked_ g.variants 0 tot_configs 0
+	ntypes 0 Counter()
+	itypes 0 Counter()
+	btypes 0 Counter()
+	ftypes 0 Counter()
+	ptypes 0 Counter()
+	numerics 0 Counter()
+edge_index created for gemm-blocked_processed_result

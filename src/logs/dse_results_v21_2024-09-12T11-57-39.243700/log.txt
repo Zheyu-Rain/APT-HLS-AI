@@ -1,0 +1,21 @@
+[0m] INFO: #################################################################
+[0m] INFO: Now processing extended-pseudo-block-connected-hierarchy graph
+[0m] INFO: *****************************************************************
+[0m] INFO: Starting DSE for gemm-blocked
+[0m] INFO: Loading configurations
+[0m] INFO: Use default value for search.algorithm.gradient.compute-bound-order: ['PARALLEL', 'PIPELINE']
+[0m] INFO: Use default value for search.algorithm.gradient.memory-bound-order: ['INTERFACE', 'CACHE', 'PIPELINE', 'TILE', 'TILING']
+[0m] INFO: Design space contains 2314 valid design points
+[0m] INFO: Finished design space compilation
+[0m] INFO: loaded /home/zheyu/HARP/models/v21/regression_pragma_as_MLP_2l-m-2l-p_model_state_dict.pth
+[0m] INFO: graph path /home/zheyu/HARP/dse_database/generated_graphs/machsuite/processed/extended-pseudo-block-connected-hierarchy/gemm-blocked_processed_result.gexf
+[0m] INFO: loaded /home/zheyu/HARP/models/v21/class_pragma_as_MLP_2l-m-2l-p_model_state_dict.pth
+[0m] INFO: Done init
+[0m] INFO: Found a better result at 0: Quality 4.1e-01, Perf 2.4e+00
+[0m] INFO: point: {'__PARA__L2': tensor([2], device='cuda:0'), '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': tensor([8], device='cuda:0'), '__TILE__L1': tensor([1], device='cuda:0'), '__TILE__L2': tensor([1], device='cuda:0'), '__TILE__L3': tensor([1], device='cuda:0')}, ret_code: RetCode.PASS, valid: True, path: None, quality: 0.4116040777449421, perf: 2.4295191764831543, res_util: {'util-BRAM': 0.01836429536342621, 'util-DSP': 0.02450740337371826, 'util-LUT': 0.03705444186925888, 'util-FF': 0.021395906805992126, 'total-BRAM': 0, 'total-DSP': 0, 'total-LUT': 0, 'total-FF': 0}, eval_time: 0.0, actual_perf: 2.4295191764831543
+[0m] INFO: Explored 1 points
+[0m] INFO: Best Results Found:
+[0m] INFO: Design 1
+[0m] INFO: point: {'__PARA__L2': tensor([2], device='cuda:0'), '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': tensor([8], device='cuda:0'), '__TILE__L1': tensor([1], device='cuda:0'), '__TILE__L2': tensor([1], device='cuda:0'), '__TILE__L3': tensor([1], device='cuda:0')}, ret_code: RetCode.PASS, valid: True, path: None, quality: 0.4116040777449421, perf: 2.4295191764831543, res_util: {'util-BRAM': 0.01836429536342621, 'util-DSP': 0.02450740337371826, 'util-LUT': 0.03705444186925888, 'util-FF': 0.021395906805992126, 'total-BRAM': 0, 'total-DSP': 0, 'total-LUT': 0, 'total-FF': 0}, eval_time: 0.0, actual_perf: 2.4295191764831543
+[0m] INFO: *****************************************************************
+[0m] INFO: 
