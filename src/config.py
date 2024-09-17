@@ -63,7 +63,7 @@ parser.add_argument('--v_db', default=v_db) # if set to true uses the db of the 
 test_kernels = None
 parser.add_argument('--test_kernels', default=test_kernels)
 # target_kernel = None
-target_kernel = 'gemm-blocked'
+target_kernel = 'gemm-ncubed'
 parser.add_argument('--target_kernel', default=target_kernel)
 # if target_kernel == None:
 #     all_kernels = True
