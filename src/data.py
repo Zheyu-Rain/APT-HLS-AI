@@ -30,6 +30,7 @@ from torch.utils.data import random_split
 
 from shutil import rmtree
 import math
+import os
 
 
 NON_OPT_PRAGMAS = ['LOOP_TRIPCOUNT', 'INTERFACE', 'INTERFACE', 'KERNEL']
@@ -161,7 +162,7 @@ class MyOwnDataset(Dataset):
         return data
 
 def split_dataset(dataset, train, val, dataset_test=None):
-    file_li = dataset.processed_file_names()
+    file_li = dataset.processed_file_names
     li = random_split(file_li, [train, val, len(dataset) - train - val],
                           generator=torch.Generator().manual_seed(FLAGS.random_seed))
     if dataset_test is None:
@@ -202,7 +203,7 @@ def split_dataset_resample(dataset, train, val, test, test_id=0):
 def get_kernel_samples(dataset):
     samples = defaultdict(list)
     for data in dataset:
-        if f'{FLAGS.target_kernel}_' in data.gname:
+        if f'{FLAGS.target_kernel}' in data.gname:
             samples[FLAGS.target_kernel].append(data)
 
     return samples[FLAGS.target_kernel]
@@ -314,6 +315,7 @@ def get_data_list():
             for db_p in db_path:
                 VER = FLAGS.v_db  
                 paths = [f for f in iglob(db_p, recursive=True) if f.endswith('.db') and n in f and VER in f]
+                print(os.getcwd())
                 db_paths.extend(paths)
             if db_paths is None:
                 saver.warning(f'No database found for {n}. Skipping.')

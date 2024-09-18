@@ -922,11 +922,8 @@ class ExhaustiveExplorer(Explorer):
 
         timer = time.time()
         duplicated_iters = 0
-        # 1294,__version__-v21.__kernel__-doitgen-red.__PARA__L3-1.__PIPE__L0-NA.__PIPE__L1-NA.__PIPE__L2-NA.__TILE__L0-1.__TILE__L1-8.__TILE__L2-1  [{'__PARA__L2': 2, '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': 8, '__TILE__L1': 1, '__TILE__L2': 1, '__TILE__L3': 1}],
-        input_list, ids = helper.parse(self.kernel_name, "/home/zheyu/APT-HLS-AI/src/test.csv")
-        df = pd.read_csv("/home/zheyu/APT-HLS-AI/src/result.csv")
-        #[[{'__PARA__L2': 2, '__PIPE__L0': 'off', '__PIPE__L1': '', '__PIPE__L2': '', '__PIPE__L3': '', '__TILE__L0': 8, '__TILE__L1': 1, '__TILE__L2': 1, '__TILE__L3': 1}]]
-        # while (time.time() - timer) < self.timeout and self.explored_point < 75000:
+        input_list, ids = helper.parse(self.kernel_name, "/home/emre24/Documents/repos/APT-HLS-AI/src/test.csv")
+        df = pd.read_csv("/home/emre24/Documents/repos/APT-HLS-AI/src/result.csv")
         for i in range(len(input_list)):
             try:
                 # Generate the next set of design points
@@ -939,7 +936,6 @@ class ExhaustiveExplorer(Explorer):
             for j in range(len(results)):
                 if isinstance(results[j], Result):
                     attrs = vars(results[j])
-                    print(type(attrs))
                     attrs = [item for item in attrs.items()]
                     self.modify_row_by_id(df, ids[j], attrs[2][1], attrs[5][1], attrs[6][1]['util-LUT'], attrs[6][1]['util-DSP'], attrs[6][1]['util-FF'], attrs[6][1]['util-BRAM']) # Change it
                     # self.log.debug(f'Evaluating Design')
@@ -951,5 +947,5 @@ class ExhaustiveExplorer(Explorer):
 
             print(f'*********Validity: {valid}')
 
-        df.to_csv("/home/zheyu/APT-HLS-AI/src/result.csv", index=False) # Saving modified submission file    
+        df.to_csv("/home/emre24/Documents/repos/APT-HLS-AI/src/result.csv", index=False) # Saving modified submission file    
         self.log.info(f'Explored {self.explored_point} points')

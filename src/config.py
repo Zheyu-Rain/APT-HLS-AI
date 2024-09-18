@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser()
 TASK = 'regression'
 parser.add_argument('--task', default=TASK)
 
-SUBTASK = 'dse'
+SUBTASK = 'inference'
 # SUBTASK = 'inference'
 # SUBTASK = 'train'
 parser.add_argument('--subtask', default=SUBTASK)
@@ -38,7 +38,7 @@ poly_KERNEL = ['2mm', '3mm', 'adi', 'atax', 'bicg', 'bicg-large', 'covariance', 
                'atax-medium', 'bicg-medium', 'gesummv-medium']
 
 
-parser.add_argument('--force_regen', type=bool, default=False) ## must be set to True for the first time to generate the dataset
+parser.add_argument('--force_regen', type=bool, default=True) ## must be set to True for the first time to generate the dataset
 
 parser.add_argument('--min_allowed_latency', type=float, default=100.0) ## if latency is less than this, prune the point (used when synthesis is not valid)
 EPSILON = 1e-3
@@ -64,7 +64,7 @@ test_kernels = None
 parser.add_argument('--test_kernels', default=test_kernels)
 # target_kernel = None
 target_kernel = 'gemm-ncubed'
-parser.add_argument('--target_kernel', default=target_kernel)
+parser.add_argument('--target_kernel', default='gemm-blocked')
 # if target_kernel == None:
 #     all_kernels = True
 # else:
@@ -230,7 +230,7 @@ parser.add_argument('--FT_extra', default=FT_extra) ## fine-tune only on the new
 ################ training details #################
 parser.add_argument('--save_model', type = bool, default=True)
 resample = False
-val_ratio = 0.15
+val_ratio = 0.0
 parser.add_argument('--resample', default=resample) ## when resample is turned on, it will divide the dataset in round-robin and train multiple times to have all the points in train/test set
 parser.add_argument('--val_ratio', type=float, default=val_ratio) # ratio of database for validation set
 parser.add_argument('--activation', default='elu')     

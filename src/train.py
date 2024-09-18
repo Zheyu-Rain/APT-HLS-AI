@@ -195,7 +195,7 @@ def inference(dataset, init_pragma_dict=None, model_path=FLAGS.model_path, val_r
     num_graphs = len(dataset_dict['train'])
     r1, r2 = get_train_val_count(num_graphs, val_ratio, test_ratio)
     if resample == -1:
-        li = split_dataset(dataset_dict['train'], r1, r2, dataset_test=dataset_dict['test'])
+        li = split_dataset(dataset, r1, r2, dataset_test=dataset_dict['test'])
     else:
         li = split_dataset_resample(dataset, 1.0 - val_ratio - test_ratio, val_ratio, test_ratio, test_id=resample)
     
