@@ -1,2 +1,0 @@
-Found 0 gexf files under /home/zheyu/HARP/dse_database/generated_graphs/**/processed/**
-[0m] INFO: loading encoder from /home/zheyu/HARP/models/encoders/pragma_as_MLP-encoders.klepto

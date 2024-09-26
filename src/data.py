@@ -32,6 +32,8 @@ from shutil import rmtree
 import math
 import os
 
+import pandas as pd
+
 
 NON_OPT_PRAGMAS = ['LOOP_TRIPCOUNT', 'INTERFACE', 'INTERFACE', 'KERNEL']
 WITH_VAR_PRAGMAS = ['DEPENDENCE', 'RESOURCE', 'STREAM', 'ARRAY_PARTITION']
@@ -344,10 +346,22 @@ def get_data_list():
         lv2_keys = [k for k in keys if 'lv2' in k]
         saver.log_info(f'num keys for {n}: {len(keys)} and lv2 keys: {len(lv2_keys)}')
 
+        test_file = pd.read_csv("test.csv")
+        names = test_file.loc[:,"designs"].values
+        cnt = 0
+        name_list = []
+        for i in range(len(names)):
+            if "gemm-blocked" not in names[i]:
+                continue
+            idx = names[i].find("gemm-blocked") + len("gemm-blocked") + 1
+            name_list.append(names[i][idx:])
+
         got_reference = False
         res_reference = 0
         max_perf = 0
         for key in sorted(keys):
+            if key[4:] not in name_list:
+                continue
             pickle_obj = database.hget(0, key)
             if pickle_obj is None:
                 continue
@@ -365,19 +379,21 @@ def get_data_list():
         else:
             saver.log_info(f'did not find reference point for {n} with {len(keys)} points')
 
-
-        cnt = 0
+        
         for key in sorted(keys):
+            if key[4:] not in name_list:
+                continue
             pickle_obj = database.hget(0, key)
             if pickle_obj is None:
                 continue
             obj = pickle.loads(pickle_obj)
             if type(obj) is int or type(obj) is dict:
                 continue
-            if FLAGS.task == 'regression' and key[0:3] == 'lv1':
-                continue
-            if FLAGS.task == 'regression' and not FLAGS.invalid and obj.perf < FLAGS.min_allowed_latency:
-                continue
+            obj.perf = 1
+            #if FLAGS.task == 'regression' and key[0:3] == 'lv1':
+            #    continue
+            #if FLAGS.task == 'regression' and obj.perf < FLAGS.min_allowed_latency:
+            #    continue
             cnt += 1
             xy_dict = _encode_X_dict(
                 g, ntypes=ntypes, ptypes=ptypes, itypes=itypes, ftypes=ftypes, btypes = btypes, numerics=numerics, point=obj.point)
@@ -388,6 +404,8 @@ def get_data_list():
             pragmas = []
             pragma_name = []
             for name, value in sorted(obj.point.items()):
+                #if value.lower() not in test_pragmas:
+                #    continue
                 if type(value) is str:
                     if value.lower() == 'flatten': #### TRY ME: changing the encodering of pipeline pragma to see if it helps with better GAE path
                         value = 100 # 2
