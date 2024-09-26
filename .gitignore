@@ -3,3 +3,5 @@ src/result.csv
 src/sample_submission.csv
 src/test.csv
 src/logs/
+.vscode/
+reqs.txt
