@@ -7,8 +7,8 @@ from os.path import join
 decoder_arch = []
 
 parser = argparse.ArgumentParser()
-# TASK = 'class'
-TASK = 'regression'
+TASK = 'class'
+#TASK = 'regression'
 parser.add_argument('--task', default=TASK)
 
 SUBTASK = 'inference'
@@ -54,7 +54,7 @@ parser.add_argument('--norm_method', default=norm)
 parser.add_argument('--new_speedup', default=True) # new_speedup: same reference point across all, 
                                                     # old_speedup: base is the longest latency and different per kernel
 
-parser.add_argument('--invalid', type = bool, default=False ) # False: do not include invalid designs
+parser.add_argument('--invalid', type = bool, default=True ) # False: do not include invalid designs
 
 parser.add_argument('--encode_log', type = bool, default=False)
 v_db = 'v21' # 'v20': v20 database, 'v18': v18 database
@@ -64,12 +64,12 @@ test_kernels = None
 parser.add_argument('--test_kernels', default=test_kernels)
 # target_kernel = None
 target_kernel = 'gemm-ncubed'
-parser.add_argument('--target_kernel', default='gemm-blocked')
+parser.add_argument('--target_kernel', default=None)
 # if target_kernel == None:
 #     all_kernels = True
 # else:
 #     all_kernels = False
-parser.add_argument('--all_kernels', type = bool, default=False)
+parser.add_argument('--all_kernels', type = bool, default=True)
 
 dataset = 'harp' # machsuite and poly 
 parser.add_argument('--dataset', default=dataset)
@@ -188,8 +188,8 @@ use_pretrain = True
 if use_pretrain:
     base_path = 'models'    
     keyword =  v_db
-    includes = [keyword, model_ver, 'regression']
-    excludes = ['class']
+    includes = [keyword, model_ver, 'class']
+    excludes = ['regression']
     model_base_path = join(get_root_path(), base_path, '**/*')
     model = [f for f in iglob(model_base_path, recursive=True) if f.endswith('.pth') and all(k not in f for k in excludes) and all(k in f for k in includes)]
     print(model)
@@ -230,7 +230,7 @@ parser.add_argument('--FT_extra', default=FT_extra) ## fine-tune only on the new
 ################ training details #################
 parser.add_argument('--save_model', type = bool, default=True)
 resample = False
-val_ratio = 0.0
+val_ratio = 100.0
 parser.add_argument('--resample', default=resample) ## when resample is turned on, it will divide the dataset in round-robin and train multiple times to have all the points in train/test set
 parser.add_argument('--val_ratio', type=float, default=val_ratio) # ratio of database for validation set
 parser.add_argument('--activation', default='elu')     

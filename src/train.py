@@ -494,6 +494,6 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
         return (total / len(loader), {key: v / len(loader) for key, v in loss_dict.items()}, gae_loss, inference_loss / count_data * len(target_list))
     else:
         if 'inf' in FLAGS.subtask: report_class_loss(points_dict)
-        return 1 - correct / total, {key: v / len(loader) for key, v in loss_dict.items()}, gae_loss, 0
+        return 1 - correct / total, {key: v / len(loader) for key, v in loss_dict.items()}
 
 

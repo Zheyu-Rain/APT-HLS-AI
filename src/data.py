@@ -351,9 +351,18 @@ def get_data_list():
         cnt = 0
         name_list = []
         for i in range(len(names)):
-            if "gemm-blocked" not in names[i]:
+            name = None
+            for j in range(len(config.MACHSUITE_KERNEL)):
+                if config.MACHSUITE_KERNEL[j] in names[i]:
+                    name = config.MACHSUITE_KERNEL[j]
+                    break
+            for j in range(len(config.poly_KERNEL)):
+                if config.poly_KERNEL[j] in names[i]:
+                    name = config.poly_KERNEL[j]
+                    break
+            if name == None:
                 continue
-            idx = names[i].find("gemm-blocked") + len("gemm-blocked") + 1
+            idx = names[i].find(name) + len(name) + 1
             name_list.append(names[i][idx:])
 
         got_reference = False
