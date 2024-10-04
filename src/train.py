@@ -444,6 +444,8 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
     target_list, loss_dict = set_target_list()
     for target_name in target_list:
         points_dict[target_name] = {'true': [], 'pred': [], 'sigma_mu': [], 'sigma+mu': [], 'sigma':[], 'error': []}
+
+    df = pd.DataFrame(columns=['kernel_name'] + [f'value_{i+1}' for i in range(21)])
     with torch.no_grad():
         for data in tqdm(loader):
             data = data.to(FLAGS.device)
@@ -468,10 +470,21 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
                         inference_loss += inference_loss_function(out_value, target_value)
                         count_data += 1
                         update_csv_dict(csv_dict, data, i, target_name, target_value, out_value)
-                                    
-                        if out_value != target_value: # and sigma[i].item() > 0.57:
-                            saver.info(f"{target_name} data {i} {_get_y_with_target(data, 'gname')[i]} pramga {_get_y_with_target(data, 'pragmas')[i][0].item()} actual value: {target_value:.2f}, predicted value: {out_value:.2f}") #, sigma: {sigma[i].item()}, log_var: {out_[i, 1].item()}')")
+
+                        iv1 = _get_y_with_target(data, 'pragmas')[i]
+                        # Create a new row as a dictionary
+                        new_row = {'kernel_name': _get_y_with_target(data, 'gname')[i]}
+                        new_row.update({f'value_{i+1}': iv1[i] for i in range(21)})
+
+                        new_row['target_value'] = f"{target_value:.2f}"
+                        new_row['out_value'] = f"{out_value:.2f}"
+
+                        new_row_df = pd.DataFrame([new_row])
+                        df = pd.concat([df, new_row_df], ignore_index=True)
                         
+                        #if out_value != target_value: # and sigma[i].item() > 0.57:
+                        saver.info(f"{target_name} data {i} {_get_y_with_target(data, 'gname')[i]} pramga {_get_y_with_target(data, 'pragmas')[i][0].item()} actual value: {target_value:.2f}, predicted value: {out_value:.2f}") #, sigma: {sigma[i].item()}, log_var: {out_[i, 1].item()}')")
+
                     points_dict[target_name]['pred'].append((target_value, out_value))
                     points_dict[target_name]['true'].append((target_value, target_value))
                     points_dict[target_name]['error'].append((target_value, abs(target_value - out_value)))
@@ -493,6 +506,7 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
             _report_rmse_etc(points_dict, f'epoch {epoch}:', True)
         return (total / len(loader), {key: v / len(loader) for key, v in loss_dict.items()}, gae_loss, inference_loss / count_data * len(target_list))
     else:
+        df.to_csv('classification.csv', index=False)  # index=False prevents the dataframe index from being saved as a column
         if 'inf' in FLAGS.subtask: report_class_loss(points_dict)
         return 1 - correct / total, {key: v / len(loader) for key, v in loss_dict.items()}
 
