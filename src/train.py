@@ -474,7 +474,7 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
                         iv1 = _get_y_with_target(data, 'pragmas')[i]
                         # Create a new row as a dictionary
                         new_row = {'kernel_name': _get_y_with_target(data, 'gname')[i]}
-                        new_row.update({f'value_{i+1}': iv1[i] for i in range(21)})
+                        new_row.update({f'value_{j+1}': iv1[j].item() for j in range(21)})
 
                         new_row['target_value'] = f"{target_value:.2f}"
                         new_row['out_value'] = f"{out_value:.2f}"

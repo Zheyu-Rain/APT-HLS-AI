@@ -311,6 +311,17 @@ def get_data_list():
         saver.log_info(gname)
         all_gs[gname] = g
 
+        test_file = pd.read_csv("test.csv")
+        names = test_file.loc[:,"designs"].values
+        cnt = 0
+        name_list = []
+        for i in range(len(names)):
+            if k+"." in names[i]:
+                idx = names[i].find(k) + len(k) + 1
+                name_list.append(names[i][idx:])
+
+        if len(name_list) == 0:
+            continue
         
         if FLAGS.dataset == 'harp':
             db_paths = []
@@ -345,25 +356,6 @@ def get_data_list():
         keys = [k.decode('utf-8') for k in database.hkeys(0)]
         lv2_keys = [k for k in keys if 'lv2' in k]
         saver.log_info(f'num keys for {n}: {len(keys)} and lv2 keys: {len(lv2_keys)}')
-
-        test_file = pd.read_csv("test.csv")
-        names = test_file.loc[:,"designs"].values
-        cnt = 0
-        name_list = []
-        for i in range(len(names)):
-            name = None
-            for j in range(len(config.MACHSUITE_KERNEL)):
-                if config.MACHSUITE_KERNEL[j] in names[i]:
-                    name = config.MACHSUITE_KERNEL[j]
-                    break
-            for j in range(len(config.poly_KERNEL)):
-                if config.poly_KERNEL[j] in names[i]:
-                    name = config.poly_KERNEL[j]
-                    break
-            if name == None:
-                continue
-            idx = names[i].find(name) + len(name) + 1
-            name_list.append(names[i][idx:])
 
         got_reference = False
         res_reference = 0
