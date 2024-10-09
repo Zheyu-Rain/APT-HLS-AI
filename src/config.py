@@ -32,9 +32,9 @@ MACHSUITE_KERNEL = ['aes', 'gemm-blocked', 'gemm-ncubed', 'spmv-crs', 'spmv-ellp
                     'nw', 'md', 'stencil-3d']
 
 poly_KERNEL = ['2mm', '3mm', 'adi', 'atax', 'bicg', 'bicg-large', 'covariance', 'doitgen', 
-               'doitgen-red', 'fdtd-2d', 'fdtd-2d-large', 'gemm-p', 'gemm-p-large', 'gemver', 
+               'doitgen-red', 'fdtd-2d', 'fdtd-2d-large', 'gemm-p', 'gemm-p-large', 'gemver', 'gemver-medium', 
                'gesummv', 'heat-3d', 'jacobi-1d', 'jacobi-2d', 'mvt', 'seidel-2d', 'symm', 
-               'symm-opt', 'syrk', 'syr2k', 'trmm', 'trmm-opt', 'mvt-medium', 'correlation',
+               'symm-opt', 'symm-opt-medium', 'syrk', 'syr2k', 'trmm', 'trmm-opt', 'mvt-medium', 'correlation',
                'atax-medium', 'bicg-medium', 'gesummv-medium']
 
 
@@ -63,7 +63,7 @@ parser.add_argument('--v_db', default=v_db) # if set to true uses the db of the 
 test_kernels = None
 parser.add_argument('--test_kernels', default=test_kernels)
 # target_kernel = None
-target_kernel = 'gemm-ncubed'
+target_kernel = 'gemm-blocked'
 parser.add_argument('--target_kernel', default='gemm-blocked')
 # if target_kernel == None:
 #     all_kernels = True

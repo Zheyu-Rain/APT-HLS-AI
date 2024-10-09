@@ -344,22 +344,76 @@ def get_data_list():
             f_db.close()
         keys = [k.decode('utf-8') for k in database.hkeys(0)]
         lv2_keys = [k for k in keys if 'lv2' in k]
-        saver.log_info(f'num keys for {n}: {len(keys)} and lv2 keys: {len(lv2_keys)}')
+        lv1_keys = [k for k in keys if 'lv1' in k]
+        saver.log_info(f'num keys for {n}: {len(keys)} and lv1 keys: {len(lv1_keys)} and lv2 keys: {len(lv2_keys)}')
 
+        # seen = set()  # Set to keep track of unique key[4:] values
+        # duplicates = []  # List to store any duplicates found
+
+        # for key in keys:
+        #     suffix = key[4:]  # Extract the part of the key starting from index 4
+        #     if suffix in seen:
+        #         duplicates.append(key)  # If it's a duplicate, add the entire key to duplicates list
+        #     else:
+        #         seen.add(suffix)  # Add the suffix to the set if it's not seen yet
+
+        # # Log or print duplicates if any are found
+        # if duplicates:
+        #     saver.log_info(f"Found {len(duplicates)} duplicate keys based on key[4:]:")
+
+        #     for dup_key in duplicates:
+        #         saver.log_info(f"Duplicate key: {dup_key}")
+        # else:
+        #     saver.log_info("No duplicate keys found based on key[4:]")
+
+
+        # read pragma list in test.csv
         test_file = pd.read_csv("test.csv")
         names = test_file.loc[:,"designs"].values
         cnt = 0
         name_list = []
         for i in range(len(names)):
-            if "gemm-blocked" not in names[i]:
+            if FLAGS.target_kernel not in names[i]:
                 continue
-            idx = names[i].find("gemm-blocked") + len("gemm-blocked") + 1
+            idx = names[i].find(FLAGS.target_kernel) + len(FLAGS.target_kernel) + 1
             name_list.append(names[i][idx:])
+
+        saver.log_info(f'Total test for kernel {FLAGS.target_kernel} is {len(name_list)}')
+
+        filtered_keys = []  # create filter key list to store matched keys in test.csv
+        seen_suffixes = {}  # dictionary to track appended keys by their suffix (key[4:])
+
+        for key in sorted(keys):
+            suffix = key[4:]  # extract the part of the key starting from index 4
+
+            if suffix not in name_list:  # ignore keys not in test.csv
+                continue
+
+            if suffix in seen_suffixes:  # find duplicated keys
+                if key[0:3] == 'lv2':    # check if current key is a lv2
+                    # If current key is 'lv2' and the stored key is 'lv1', replace it
+                    if seen_suffixes[suffix][0:3] == 'lv1':
+                        # Remove the previous 'lv1' key and replace it with 'lv2'
+                        filtered_keys.remove(seen_suffixes[suffix])  # Remove the 'lv1' key
+                        filtered_keys.append(key)  # Append the 'lv2' key
+                        seen_suffixes[suffix] = key  # Update the dictionary with the 'lv2' key
+                # If the current key is 'lv1', do nothing (since 'lv1' is lower priority)
+            else:
+                # If suffix is not seen, append the key and track it
+                filtered_keys.append(key)
+                seen_suffixes[suffix] = key
+
+        # sort the filtered_keys
+        keys[:] = sorted(filtered_keys, key=lambda k: name_list.index(k[4:]))
+
+        saver.log_info(f'num of selected keys: {len(keys)}')
+
+        #saver.log_info(keys)
 
         got_reference = False
         res_reference = 0
         max_perf = 0
-        for key in sorted(keys):
+        for key in keys:
             if key[4:] not in name_list:
                 continue
             pickle_obj = database.hget(0, key)
@@ -368,7 +422,7 @@ def get_data_list():
             obj = pickle.loads(pickle_obj)
             if type(obj) is int or type(obj) is dict:
                 continue
-            if key[0:3] == 'lv1' or obj.perf == 0:#obj.ret_code.name == 'PASS':
+            if obj.perf == 0:#obj.ret_code.name == 'PASS': #key[0:3] == 'lv1' or 
                 continue
             if obj.perf > max_perf:
                 max_perf = obj.perf
@@ -380,7 +434,7 @@ def get_data_list():
             saver.log_info(f'did not find reference point for {n} with {len(keys)} points')
 
         
-        for key in sorted(keys):
+        for key in keys:
             if key[4:] not in name_list:
                 continue
             pickle_obj = database.hget(0, key)
@@ -403,7 +457,7 @@ def get_data_list():
             
             pragmas = []
             pragma_name = []
-            for name, value in sorted(obj.point.items()):
+            for name, value in obj.point.items():
                 #if value.lower() not in test_pragmas:
                 #    continue
                 if type(value) is str:
@@ -421,6 +475,8 @@ def get_data_list():
                     raise ValueError()
                 pragmas.append(value)
                 pragma_name.append(name)
+            saver.log_info(pragmas)
+            #saver.log_info(pragma_name)
  
             check_dim = init_feat_dict.get(gname)
             if check_dim is not None:
@@ -432,6 +488,8 @@ def get_data_list():
             pragmas.extend([0] * (max_pragma_length - len(pragmas)))
                 
             xy_dict['pragmas'] = torch.FloatTensor(np.array([pragmas]))
+
+            saver.log_info(f'padded pragma length: {len(pragmas)}')
 
 
             if FLAGS.task == 'regression':

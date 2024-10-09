@@ -28,8 +28,12 @@ import pandas as pd
 
 def report_class_loss(points_dict):
     d = points_dict[FLAGS.target[0]]
-    labels = [data for data,_ in d['pred']]
-    pred = [data for _,data in d['pred']]
+    print(points_dict)
+    print(f"Target: {d}")
+    labels = [data for data,_ in d['true']]
+    pred = [data for _,data in d['true']]
+    print(f"Labels: {labels}")
+    print(f"Predictions: {pred}")
     target_names = ['invalid', 'valid']
     saver.info('classification report')
     saver.log_info(classification_report(labels, pred, target_names=target_names))
