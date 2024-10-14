@@ -11,7 +11,7 @@ TASK = 'class'
 #TASK = 'regression'
 parser.add_argument('--task', default=TASK)
 
-SUBTASK = 'inference'
+SUBTASK = 'train'
 # SUBTASK = 'inference'
 # SUBTASK = 'train'
 parser.add_argument('--subtask', default=SUBTASK)
@@ -230,7 +230,7 @@ parser.add_argument('--FT_extra', default=FT_extra) ## fine-tune only on the new
 ################ training details #################
 parser.add_argument('--save_model', type = bool, default=True)
 resample = False
-val_ratio = 100.0
+val_ratio = 10.0
 parser.add_argument('--resample', default=resample) ## when resample is turned on, it will divide the dataset in round-robin and train multiple times to have all the points in train/test set
 parser.add_argument('--val_ratio', type=float, default=val_ratio) # ratio of database for validation set
 parser.add_argument('--activation', default='elu')     

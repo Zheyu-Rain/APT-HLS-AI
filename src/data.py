@@ -310,10 +310,10 @@ def get_data_list():
         n = f"{basename(gexf_file).split('_')[0]}_"
         saver.log_info(gname)
         all_gs[gname] = g
-
-        test_file = pd.read_csv("test.csv")
-        names = test_file.loc[:,"designs"].values
         cnt = 0
+
+        """ test_file = pd.read_csv("test.csv")
+        names = test_file.loc[:,"designs"].values
         name_list = []
         for i in range(len(names)):
             if k+"." in names[i]:
@@ -321,7 +321,7 @@ def get_data_list():
                 name_list.append(names[i][idx:])
 
         if len(name_list) == 0:
-            continue
+            continue """
         
         if FLAGS.dataset == 'harp':
             db_paths = []
@@ -361,8 +361,8 @@ def get_data_list():
         res_reference = 0
         max_perf = 0
         for key in sorted(keys):
-            if key[4:] not in name_list:
-                continue
+            #if key[4:] not in name_list:
+            #    continue
             pickle_obj = database.hget(0, key)
             if pickle_obj is None:
                 continue
@@ -382,8 +382,8 @@ def get_data_list():
 
         
         for key in sorted(keys):
-            if key[4:] not in name_list:
-                continue
+            #if key[4:] not in name_list:
+            #    continue
             pickle_obj = database.hget(0, key)
             if pickle_obj is None:
                 continue
