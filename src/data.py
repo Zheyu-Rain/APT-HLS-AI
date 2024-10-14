@@ -289,6 +289,8 @@ def get_data_list():
     init_feat_dict = {}
     max_pragma_length = 21
 
+    f = open("missings_in_test.txt", "a")
+
     for gexf_file in tqdm(GEXF_FILES[0:]): 
         saver.info(f'Working on graph file: {gexf_file}')
         if FLAGS.dataset == 'harp':
@@ -321,6 +323,7 @@ def get_data_list():
                 name_list.append(names[i][idx:])
 
         if len(name_list) == 0:
+            f.write(k+"\n") # writing kernels which are not in test.csv
             continue
         
         if FLAGS.dataset == 'harp':
@@ -613,6 +616,7 @@ def get_data_list():
 
 
     rtn = MyOwnDataset()
+    f.close()
     return rtn, init_feat_dict
 
 
