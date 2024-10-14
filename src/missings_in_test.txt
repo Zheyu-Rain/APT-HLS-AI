@@ -1,3 +1,0 @@
-md
-spmv-crs
-stencil_stencil2d

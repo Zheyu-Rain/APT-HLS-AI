@@ -5,3 +5,5 @@ src/test.csv
 src/logs/
 .vscode/
 reqs.txt
+src/__pycache__
+src/autodse/__pycache__
