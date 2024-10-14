@@ -33,6 +33,7 @@ import math
 import os
 
 import pandas as pd
+import re
 
 
 NON_OPT_PRAGMAS = ['LOOP_TRIPCOUNT', 'INTERFACE', 'INTERFACE', 'KERNEL']
@@ -235,6 +236,15 @@ def log_graph_properties(ntypes, itypes, btypes, ftypes, ptypes, numerics):
     saver.log_info(f'\tptypes {len(ptypes)} {ptypes}')
     saver.log_info(f'\tnumerics {len(numerics)} {numerics}')
 
+
+def parse_kernel_name(line):
+    # Use regex to extract the kernel name after "__kernel__-"
+    match = re.search(r'__kernel__-([^\.]+)\.', line)
+    if match:
+        return match.group(1)  # Return the extracted kernel name
+    else:
+        return None  # Return None if no match found
+
 def get_data_list():
     saver.log_info(f'Found {len(GEXF_FILES)} gexf files under {GEXF_FOLDER}')
     # create a redis database
@@ -290,6 +300,10 @@ def get_data_list():
     max_pragma_length = 21
 
     f = open("missings_in_test.txt", "a")
+    name_set_db = set()
+    name_set_test = set()
+    for k in ALL_KERNEL:
+        name_set_db.add(k)
 
     for gexf_file in tqdm(GEXF_FILES[0:]): 
         saver.info(f'Working on graph file: {gexf_file}')
@@ -317,13 +331,15 @@ def get_data_list():
         names = test_file.loc[:,"designs"].values
         cnt = 0
         name_list = []
+        
         for i in range(len(names)):
+            name_set_test.add(parse_kernel_name(names[i]))
             if k+"." in names[i]:
                 idx = names[i].find(k) + len(k) + 1
                 name_list.append(names[i][idx:])
 
         if len(name_list) == 0:
-            f.write(k+"\n") # writing kernels which are not in test.csv
+            #f.write(k+"\n") # writing kernels which are not in test.csv
             continue
         
         if FLAGS.dataset == 'harp':
@@ -616,6 +632,14 @@ def get_data_list():
 
 
     rtn = MyOwnDataset()
+    f.write("name_set_db.difference(name_set_test)\n")
+    for elem in name_set_db.difference(name_set_test):
+        f.write(elem)
+        f.write("\n")
+    f.write("name_set_test.difference(name_set_db)\n")
+    for elem in name_set_test.difference(name_set_db):
+        f.write(elem)
+        f.write("\n")
     f.close()
     return rtn, init_feat_dict
 
