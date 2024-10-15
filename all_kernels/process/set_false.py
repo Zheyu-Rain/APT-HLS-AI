@@ -9,7 +9,7 @@ util_columns = ['util-LUT', 'util-DSP', 'util-FF', 'util-BRAM']
 # Scan the util columns and check if any value is < 0.0 or > 0.8, and also check perf if it's < 0.0
 for index, row in submission_df.iterrows():
     # Check if any util column is < 0.0 or > 0.8
-    util_condition = any((row[util_col] < 0.0 or row[util_col] > 0.8) for util_col in util_columns)
+    util_condition = any((row[util_col] < 0.0 or row[util_col] > 0.7) for util_col in util_columns)
     
     # Check if perf is < 0.0
     perf_condition = row['perf'] < 0.0
