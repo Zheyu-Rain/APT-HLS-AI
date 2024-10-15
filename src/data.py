@@ -163,9 +163,9 @@ class MyOwnDataset(Dataset):
         data = torch.load(fn)
         return data
 
-def split_dataset(dataset, train, val, dataset_test=None):
+def split_dataset(dataset_dict, dataset, train, val, dataset_test=None):
     file_li = dataset.processed_file_names
-    li = random_split(file_li, [train, val, len(dataset) - train - val],
+    li = random_split(file_li, [train, val, len(dataset_dict) - train - val],
                           generator=torch.Generator().manual_seed(FLAGS.random_seed))
     if dataset_test is None:
         dataset_test = li[2]
@@ -178,12 +178,12 @@ def split_dataset(dataset, train, val, dataset_test=None):
 
     return [train_dataset, val_dataset, test_dataset]
 
-def split_dataset_resample(dataset, train, val, test, test_id=0):
+def split_dataset_resample(dataset_dict, dataset, train, val, test, test_id=0):
     file_li = dataset.processed_file_names
     num_batch = int(1 / test)
-    splits_ratio = [int(len(dataset) * test)] * num_batch
-    splits_ratio[-1] = len(dataset) - int(len(dataset) * test * (num_batch-1))
-    print(splits_ratio, len(dataset), sum(splits_ratio))
+    splits_ratio = [int(len(dataset_dict) * test)] * num_batch
+    splits_ratio[-1] = len(dataset_dict) - int(len(dataset_dict) * test * (num_batch-1))
+    print(splits_ratio, len(dataset_dict), sum(splits_ratio))
     splits_ = random_split(file_li, splits_ratio,
                           generator=torch.Generator().manual_seed(100))
     test_split = splits_[test_id]
@@ -625,7 +625,7 @@ def print_data_stats(data_loader, tvt):
         nns.append(d.x.shape[0])
         # ads.append(d.edge_index.shape[1] / d.x.shape[0])
         ys.append(d.y.item())
-    print_stats(nns, f'{tvt} number of nodes')
+    #print_stats(nns, f'{tvt} number of nodes')
     # print_stats(ads, f'{tvt} avg degrees')
     plot_dist(ys, f'{tvt} ys', saver.get_log_dir(), saver=saver, analyze_dist=True, bins=None)
     saver.log_info(f'{tvt} ys', Counter(ys))

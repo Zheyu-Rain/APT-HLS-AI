@@ -169,16 +169,22 @@ def gen_dataset(li):
     return train_loader, val_loader, test_loader, num_features, edge_dim 
 
 def process_split_data(dataset):
-    dataset_dict = defaultdict(list)
+    # Initialize dataset_dict as a normal dictionary
+    dataset_dict = {}
     dataset_dict['train'] = dataset
     dataset_dict['test'] = None
+
     if not FLAGS.all_kernels:
-        dataset = get_kernel_samples(dataset)
-        dataset_dict['train'] = dataset
+        # Perform processing on dataset, retaining all attributes
+        dataset_dict['train'] = get_kernel_samples(dataset)
     elif FLAGS.test_kernels is not None:
+        # Split dataset into train and test
         dataset_dict = split_train_test_kernel(dataset)
-        
+
+    print(f'Process Split Data Finished!')
+
     return dataset_dict
+
 
 def get_train_val_count(num_graphs, val_ratio, test_ratio):
     if FLAGS.test_kernels is not None:
@@ -298,17 +304,17 @@ def update_csv_dict(csv_dict, data, i, target_name, target_value, out_value):
                 l.extend([f'acutal-{target_name}', f'predicted-{target_name}'])
                 csv_dict['header'] = l
 
-def train_main(dataset, pragma_dim = None, val_ratio=FLAGS.val_ratio, test_ratio=FLAGS.val_ratio, resample=-1):
+def train_main(dataset, pragma_dim = None, val_ratio=0.2, test_ratio=0.2, resample=-1):
     saver.info(f'Reading dataset from {SAVE_DIR}')
     
     dataset_dict = process_split_data(dataset)
     num_graphs = len(dataset_dict['train'])
     r1, r2 = get_train_val_count(num_graphs, val_ratio, test_ratio)
 
-    if resample == -1:
-        li = split_dataset(dataset_dict['train'], r1, r2, dataset_test=dataset_dict['test'])
+    if resample == 0: # was -1?
+        li = split_dataset(dataset_dict['train'], dataset, r1, r2, dataset_test=dataset_dict['test'])
     else:
-        li = split_dataset_resample(dataset_dict['train'], 1.0 - val_ratio - test_ratio, val_ratio, test_ratio, test_id=resample)
+        li = split_dataset_resample(dataset_dict['train'], dataset, 1.0 - val_ratio - test_ratio, val_ratio, test_ratio, test_id=resample)
     
     train_loader, val_loader, test_loader, num_features, edge_dim = gen_dataset(li)
     model = Net(num_features, edge_dim=edge_dim, init_pragma_dict=pragma_dim).to(FLAGS.device)
@@ -355,12 +361,16 @@ def train_main(dataset, pragma_dim = None, val_ratio=FLAGS.val_ratio, test_ratio
         total_lrs.extend(lrs)
         if len(val_loader) > 0:
             saver.log_info(f'Epoch {epoch} val')
-            val, loss_dict_val, gae_loss_val, _ = test(val_loader, 'val', model, epoch)
+            val, loss_dict_val = test(val_loader, 'val', model, epoch)
+            gae_loss_val = 0 # for class
+            _ = 0 # for class
             plot_test = model_update(model, val_losses, val, epoch, plot_test, 'val')
 
         if len(test_loader) > 0:
             saver.log_info(f'Epoch {epoch} test')
-            test_loss, loss_dict_test, gae_loss_test, _ = test(test_loader, 'test', model, epoch, plot_test, test_losses)
+            test_loss, loss_dict_test = test(test_loader, 'test', model, epoch, plot_test, test_losses)
+            gae_loss_test = 0 # for class
+            _ = 0 # for class
             plot_test = model_update(model, test_losses, test_loss, epoch, plot_test, 'test')
 
         log_loss(loss_dict_train, gae_loss_train, "Train")
@@ -428,6 +438,8 @@ def train(epoch, model, train_loader, optimizer, lr_scheduler, warmup_scheduler)
         saver.writer.add_scalar('loss/loss', loss, epoch * len(train_loader) + i)
         i += 1
     
+    print(f'length of train_loader: {len(train_loader)}')
+
     if FLAGS.scheduler is not None and epoch < 2:
         create_dir_if_not_exists(join(saver.get_log_dir(), 'lrs'))
     if FLAGS.task == 'regression':    

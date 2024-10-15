@@ -63,13 +63,13 @@ parser.add_argument('--v_db', default=v_db) # if set to true uses the db of the 
 test_kernels = None
 parser.add_argument('--test_kernels', default=test_kernels)
 # target_kernel = None
-target_kernel = 'doitgen-red'
-parser.add_argument('--target_kernel', default=None)
+target_kernel = '2mm'
+parser.add_argument('--target_kernel', default=target_kernel)
 # if target_kernel == None:
 #     all_kernels = True
 # else:
 #     all_kernels = False
-parser.add_argument('--all_kernels', type = bool, default=True)
+parser.add_argument('--all_kernels', type = bool, default=False)
 
 dataset = 'harp' # machsuite and poly 
 parser.add_argument('--dataset', default=dataset)
@@ -242,8 +242,8 @@ parser.add_argument('--weight_decay', default=weight_decay) ## default=0.0001, l
 parser.add_argument("--scheduler", default=scheduler)
 parser.add_argument("--warmup", default=warmup)
 
-parser.add_argument('--random_seed', default=123) ## default=100
-batch_size = 1
+parser.add_argument('--random_seed', default=100) ## default=100
+batch_size = 128
 parser.add_argument('--batch_size', type=int, default=batch_size)
 
 loss = 'MSE' # RMSE, MSE, 
