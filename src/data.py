@@ -58,7 +58,7 @@ import config
 TARGETS = config.TARGETS
 MACHSUITE_KERNEL = config.MACHSUITE_KERNEL
 poly_KERNEL = config.poly_KERNEL
-ALL_KERNEL = MACHSUITE_KERNEL + poly_KERNEL
+ALL_KERNEL =  poly_KERNEL
 
 if FLAGS.all_kernels:
     GEXF_FILES = sorted([f for f in iglob(GEXF_FOLDER, recursive=True) if f.endswith('.gexf') and FLAGS.graph_type in f])
@@ -180,6 +180,8 @@ def split_dataset(dataset_dict, dataset, train, val, dataset_test=None):
 
 def split_dataset_resample(dataset_dict, dataset, train, val, test, test_id=0):
     file_li = dataset.processed_file_names
+
+    # produce test set
     num_batch = int(1 / test)
     splits_ratio = [int(len(dataset_dict) * test)] * num_batch
     splits_ratio[-1] = len(dataset_dict) - int(len(dataset_dict) * test * (num_batch-1))
@@ -187,6 +189,8 @@ def split_dataset_resample(dataset_dict, dataset, train, val, test, test_id=0):
     splits_ = random_split(file_li, splits_ratio,
                           generator=torch.Generator().manual_seed(100))
     test_split = splits_[test_id]
+
+    # produce train and val set
     train_val_data = []
     for i in range(num_batch):
         if i != test_id:

@@ -88,10 +88,10 @@ if __name__ == '__main__':
     elif FLAGS.subtask == 'train':
         test_ratio, resample_list = FLAGS.val_ratio, [-1]
         if FLAGS.resample:
-            test_ratio, resample_list = 0.25, range(4)
+            test_ratio, resample_list = 0.25, range(1)  # set test ratio to 25% and perform 4 different resample (4 trains)
         for ind, r in enumerate(resample_list):
             saver.info(f'Starting training with resample {r}')
-            test_data = train_main(dataset, pragma_dim, test_ratio=test_ratio, resample=r)
+            test_data = train_main(dataset, pragma_dim, val_ratio=FLAGS.val_ratio, test_ratio=test_ratio, resample=r)
             if ind + 1 < len(resample_list):
                 saver.new_sub_saver(subdir=f'run{ind+2}')
                 saver.log_info('\n\n')

@@ -26,6 +26,7 @@ from collections import OrderedDict, defaultdict
 import pandas as pd
 
 
+# classification inference report
 def report_class_loss(points_dict):
     d = points_dict[FLAGS.target[0]]
     labels = [data for data,_ in d['pred']]
@@ -154,6 +155,7 @@ def check_feature_extract(model, key_word, gnn_layer=None):
                     assert param.requires_grad == False
 
 
+# generate dataloader for train, val and test
 def gen_dataset(li):
     train_loader = DataLoader(li[0], batch_size=FLAGS.batch_size, shuffle=False, pin_memory=True, num_workers=4)
     val_loader = DataLoader(li[1], batch_size=FLAGS.batch_size, pin_memory=True, num_workers=4)  # TODO: split make sure no seen kernels in val/test
@@ -304,7 +306,7 @@ def update_csv_dict(csv_dict, data, i, target_name, target_value, out_value):
                 l.extend([f'acutal-{target_name}', f'predicted-{target_name}'])
                 csv_dict['header'] = l
 
-def train_main(dataset, pragma_dim = None, val_ratio=0.2, test_ratio=0.2, resample=-1):
+def train_main(dataset, pragma_dim = None, val_ratio=0.1, test_ratio=0.25, resample=-1):
     saver.info(f'Reading dataset from {SAVE_DIR}')
     
     dataset_dict = process_split_data(dataset)
@@ -318,6 +320,8 @@ def train_main(dataset, pragma_dim = None, val_ratio=0.2, test_ratio=0.2, resamp
     
     train_loader, val_loader, test_loader, num_features, edge_dim = gen_dataset(li)
     model = Net(num_features, edge_dim=edge_dim, init_pragma_dict=pragma_dim).to(FLAGS.device)
+
+    # load pre-trained model pth
     if FLAGS.model_path != None:
         model_path = FLAGS.model_path[0] if type(FLAGS.model_path) is list else FLAGS.model_path 
         saver.info(f'loading model from {model_path}')

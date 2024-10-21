@@ -33,14 +33,14 @@ MACHSUITE_KERNEL = ['aes', 'gemm-blocked', 'gemm-ncubed', 'spmv-crs', 'spmv-ellp
 
 poly_KERNEL = ['2mm', '3mm', 'adi', 'atax', 'bicg', 'bicg-large', 'covariance', 'doitgen', 
                'doitgen-red', 'fdtd-2d', 'fdtd-2d-large', 'gemm-p', 'gemm-p-large', 'gemver', 'gemver-medium',
-               'gesummv', 'heat-3d', 'jacobi-1d', 'jacobi-2d', 'mvt', 'seidel-2d', 'symm', 
+               'gesummv', 'heat-3d', 'jacobi-1d', 'jacobi-2d' , 'mvt', 'seidel-2d', 'symm', 
                'symm-opt', 'symm-opt-medium', 'syrk', 'syr2k', 'trmm', 'trmm-opt', 'mvt-medium', 'correlation',
                'atax-medium', 'bicg-medium', 'gesummv-medium']
 
 
 parser.add_argument('--force_regen', type=bool, default=True) ## must be set to True for the first time to generate the dataset
 
-parser.add_argument('--min_allowed_latency', type=float, default=100.0) ## if latency is less than this, prune the point (used when synthesis is not valid)
+parser.add_argument('--min_allowed_latency', type=float, default=0.0) ## if latency is less than this, prune the point (used when synthesis is not valid)
 EPSILON = 1e-3
 parser.add_argument('--epsilon', default=EPSILON)
 NORMALIZER = 1e7
@@ -63,13 +63,13 @@ parser.add_argument('--v_db', default=v_db) # if set to true uses the db of the 
 test_kernels = None
 parser.add_argument('--test_kernels', default=test_kernels)
 # target_kernel = None
-target_kernel = '2mm'
+target_kernel = None #'2mm'
 parser.add_argument('--target_kernel', default=target_kernel)
 # if target_kernel == None:
 #     all_kernels = True
 # else:
 #     all_kernels = False
-parser.add_argument('--all_kernels', type = bool, default=False)
+parser.add_argument('--all_kernels', type = bool, default=True)
 
 dataset = 'harp' # machsuite and poly 
 parser.add_argument('--dataset', default=dataset)
@@ -206,6 +206,8 @@ ensemble_weights = None
 parser.add_argument('--ensemble', type=int, default=ensemble)
 parser.add_argument('--ensemble_weights', default=ensemble_weights)
 class_model_path = None
+
+
 if SUBTASK == 'dse':
     keyword =  v_db
     includes = [keyword, model_ver, 'class']
@@ -230,7 +232,7 @@ parser.add_argument('--FT_extra', default=FT_extra) ## fine-tune only on the new
 ################ training details #################
 parser.add_argument('--save_model', type = bool, default=True)
 resample = False
-val_ratio = 10.0
+val_ratio = 0.1
 parser.add_argument('--resample', default=resample) ## when resample is turned on, it will divide the dataset in round-robin and train multiple times to have all the points in train/test set
 parser.add_argument('--val_ratio', type=float, default=val_ratio) # ratio of database for validation set
 parser.add_argument('--activation', default='elu')     
@@ -243,19 +245,19 @@ parser.add_argument("--scheduler", default=scheduler)
 parser.add_argument("--warmup", default=warmup)
 
 parser.add_argument('--random_seed', default=100) ## default=100
-batch_size = 128
+batch_size = 64
 parser.add_argument('--batch_size', type=int, default=batch_size)
 
-loss = 'MSE' # RMSE, MSE, 
+loss = 'RMSE' # RMSE, MSE, 
 parser.add_argument('--loss', type=str, default=loss) 
 
 if model_path == None:
     if TASK == 'regression':
         epoch_num = 1500
     else:
-        epoch_num = 200
+        epoch_num = 30
 else:
-    epoch_num = 200
+    epoch_num = 30
 
 parser.add_argument('--epoch_num', type=int, default=epoch_num)
 
