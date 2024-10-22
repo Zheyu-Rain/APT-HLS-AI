@@ -1,5 +1,2 @@
 name_set_db.difference(name_set_test)
 name_set_test.difference(name_set_db)
-stencil
-name_set_db.difference(name_set_test)
-name_set_test.difference(name_set_db)

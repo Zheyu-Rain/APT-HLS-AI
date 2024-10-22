@@ -243,7 +243,7 @@ parser.add_argument("--scheduler", default=scheduler)
 parser.add_argument("--warmup", default=warmup)
 
 parser.add_argument('--random_seed', default=123) ## default=100
-batch_size = 1
+batch_size = 32
 parser.add_argument('--batch_size', type=int, default=batch_size)
 
 loss = 'MSE' # RMSE, MSE, 
