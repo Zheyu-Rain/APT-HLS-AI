@@ -218,12 +218,12 @@ parser.add_argument('--class_model_path', default=class_model_path)
 
 
 ################ transfer learning #################
-feature_extract = False
+feature_extract = True
 parser.add_argument('--feature_extract', default=feature_extract) # if set to true GNN encoder (or part of it) will be fixed and only MLP will be trained
 if feature_extract:
     parser.add_argument('--random_MLP', default=False) # true: initialize MLP randomly
 fix_gnn_layer = None ## if none, all layers will be fixed
-fix_gnn_layer = 1 ## number of gnn layers to freeze, feature_extract should be set to True
+#fix_gnn_layer = 1 ## number of gnn layers to freeze, feature_extract should be set to True
 parser.add_argument('--fix_gnn_layer', default=fix_gnn_layer) # if not set to none, feature_extract should be True
 FT_extra = False
 parser.add_argument('--FT_extra', default=FT_extra) ## fine-tune only on the new data points
