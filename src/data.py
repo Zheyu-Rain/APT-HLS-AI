@@ -58,7 +58,7 @@ import config
 TARGETS = config.TARGETS
 MACHSUITE_KERNEL = config.MACHSUITE_KERNEL
 poly_KERNEL = config.poly_KERNEL
-ALL_KERNEL =  poly_KERNEL
+ALL_KERNEL =  MACHSUITE_KERNEL + poly_KERNEL
 
 if FLAGS.all_kernels:
     GEXF_FILES = sorted([f for f in iglob(GEXF_FOLDER, recursive=True) if f.endswith('.gexf') and FLAGS.graph_type in f])
