@@ -231,8 +231,8 @@ parser.add_argument('--FT_extra', default=FT_extra) ## fine-tune only on the new
 
 ################ training details #################
 parser.add_argument('--save_model', type = bool, default=True)
-resample = False
-val_ratio = 0.1
+resample = True
+val_ratio = 0.15
 parser.add_argument('--resample', default=resample) ## when resample is turned on, it will divide the dataset in round-robin and train multiple times to have all the points in train/test set
 parser.add_argument('--val_ratio', type=float, default=val_ratio) # ratio of database for validation set
 parser.add_argument('--activation', default='elu')     
@@ -244,20 +244,20 @@ parser.add_argument('--weight_decay', default=weight_decay) ## default=0.0001, l
 parser.add_argument("--scheduler", default=scheduler)
 parser.add_argument("--warmup", default=warmup)
 
-parser.add_argument('--random_seed', default=100) ## default=100
-batch_size = 128
+parser.add_argument('--random_seed', default=50) ## default=50
+batch_size = 64
 parser.add_argument('--batch_size', type=int, default=batch_size)
 
-loss = 'RMSE' # RMSE, MSE, 
+loss = 'MSE' # RMSE, MSE, 
 parser.add_argument('--loss', type=str, default=loss) 
 
 if model_path == None:
     if TASK == 'regression':
         epoch_num = 1500
     else:
-        epoch_num = 30
+        epoch_num = 100
 else:
-    epoch_num = 30
+    epoch_num = 100
 
 parser.add_argument('--epoch_num', type=int, default=epoch_num)
 

@@ -187,7 +187,7 @@ def split_dataset_resample(dataset_dict, dataset, train, val, test, test_id=0):
     splits_ratio[-1] = len(dataset_dict) - int(len(dataset_dict) * test * (num_batch-1))
     print(splits_ratio, len(dataset_dict), sum(splits_ratio))
     splits_ = random_split(file_li, splits_ratio,
-                          generator=torch.Generator().manual_seed(100))
+                          generator=torch.Generator().manual_seed(FLAGS.random_seed))
     test_split = splits_[test_id]
 
     # produce train and val set

@@ -306,7 +306,7 @@ def update_csv_dict(csv_dict, data, i, target_name, target_value, out_value):
                 l.extend([f'acutal-{target_name}', f'predicted-{target_name}'])
                 csv_dict['header'] = l
 
-def train_main(dataset, pragma_dim = None, val_ratio=0.1, test_ratio=0.25, resample=-1):
+def train_main(dataset, pragma_dim = None, val_ratio=0.15, test_ratio=0.15, resample=-1):
     saver.info(f'Reading dataset from {SAVE_DIR}')
     
     dataset_dict = process_split_data(dataset)

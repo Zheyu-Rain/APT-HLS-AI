@@ -88,7 +88,7 @@ if __name__ == '__main__':
     elif FLAGS.subtask == 'train':
         test_ratio, resample_list = FLAGS.val_ratio, [-1]
         if FLAGS.resample:
-            test_ratio, resample_list = 0.25, range(1)  # set test ratio to 25% and perform 4 different resample (4 trains)
+            test_ratio, resample_list = 0.15, range(1)  # set test ratio to 25% and perform 4 different resample (4 trains)
         for ind, r in enumerate(resample_list):
             saver.info(f'Starting training with resample {r}')
             test_data = train_main(dataset, pragma_dim, val_ratio=FLAGS.val_ratio, test_ratio=test_ratio, resample=r)
