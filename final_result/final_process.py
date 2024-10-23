@@ -6,7 +6,7 @@ from tqdm import tqdm
 with open("debug_log.txt", "w") as log_file:
 
     final_submission = pd.read_csv("final_regression.csv")
-    df_ = pd.read_csv("../classification.csv")
+    df_ = pd.read_csv("../../src/classification.csv")
 
     # iterate through all kernels
     for f in tqdm(os.listdir("./")):
