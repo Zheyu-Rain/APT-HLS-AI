@@ -1,1 +1,1 @@
-This is the branch for HARP regression inference task.
+This is the branch for HARP classification inference task.
