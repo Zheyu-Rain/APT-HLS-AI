@@ -18,6 +18,7 @@ Due to cost limitations, we did not pursue this approach further.
 
 Our second approach involved fine-tuning a Graph Neural Network (GNN) capable of learning from HLS representations. The model used in our training is based on a previous research project named 'HARP', you can find their work at:
 
+[HARP](https://github.com/UCLA-VAST/HARP)
 
 
 We extract the test point from data base and fine tune the model based on this smaller dataset.
