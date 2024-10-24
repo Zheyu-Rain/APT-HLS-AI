@@ -16,7 +16,11 @@ Due to cost limitations, we did not pursue this approach further.
 
 **Approach #2**: Fine-tuning a GNN Model for HLS Representations
 
-Our second approach involved fine-tuning a Graph Neural Network (GNN) capable of learning from HLS representations. We extract the test point from data base and fine tune the model based on this smaller dataset.
+Our second approach involved fine-tuning a Graph Neural Network (GNN) capable of learning from HLS representations. The model used in our training is based on a previous research project named 'HARP', you can find their work at:
+
+
+
+We extract the test point from data base and fine tune the model based on this smaller dataset.
 
 We first performed all layer fine-tuning and then blocked the gnn layers to fine-tune the final MLP layers only. The result inference loss was a bit higher than the original model.
 
