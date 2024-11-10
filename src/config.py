@@ -17,6 +17,8 @@ SUBTASK = 'inference'
 parser.add_argument('--subtask', default=SUBTASK)
 parser.add_argument('--plot_dse', default=False)
 
+parser.add_argument('--use_test_csv', default=False) # When it is True, the model is only run on test.csv data.
+
 
 #################### visualization ####################
 parser.add_argument('--vis_per_kernel', default=True) ## only tsne visualization for now 
@@ -243,7 +245,7 @@ parser.add_argument("--scheduler", default=scheduler)
 parser.add_argument("--warmup", default=warmup)
 
 parser.add_argument('--random_seed', default=123) ## default=100
-batch_size = 64
+batch_size = 1
 parser.add_argument('--batch_size', type=int, default=batch_size)
 
 loss = 'MSE' # RMSE, MSE, 

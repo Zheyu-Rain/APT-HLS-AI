@@ -386,7 +386,7 @@ def get_data_list():
         for key in sorted(keys):
             suffix = key[4:]  # extract the part of the key starting from index 4
 
-            if suffix not in name_list:  # ignore keys not in test.csv
+            if FLAGS.use_test_csv and suffix not in name_list:  # ignore keys not in test.csv
                 continue
 
             if suffix in seen_suffixes:  # find duplicated keys
@@ -404,7 +404,8 @@ def get_data_list():
                 seen_suffixes[suffix] = key
 
         # sort the filtered_keys
-        keys[:] = sorted(filtered_keys, key=lambda k: name_list.index(k[4:]))
+        if FLAGS.use_test_csv:
+            keys[:] = sorted(filtered_keys, key=lambda k: name_list.index(k[4:]))
 
         saver.log_info(f'num of selected keys: {len(keys)}')
 
@@ -414,7 +415,7 @@ def get_data_list():
         res_reference = 0
         max_perf = 0
         for key in keys:
-            if key[4:] not in name_list:
+            if FLAGS.use_test_csv and key[4:] not in name_list:
                 continue
             pickle_obj = database.hget(0, key)
             if pickle_obj is None:
@@ -435,7 +436,7 @@ def get_data_list():
 
         
         for key in keys:
-            if key[4:] not in name_list:
+            if FLAGS.use_test_csv and key[4:] not in name_list:
                 continue
             pickle_obj = database.hget(0, key)
             if pickle_obj is None:

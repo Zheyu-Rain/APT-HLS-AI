@@ -448,6 +448,8 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
     target_list, loss_dict = set_target_list()
     for target_name in target_list:
         points_dict[target_name] = {'true': [], 'pred': [], 'sigma_mu': [], 'sigma+mu': [], 'sigma':[], 'error': []}
+
+    df = pd.DataFrame(columns=['kernel_name'] + [f'value_{i+1}' for i in range(21)] + [f'embedding_{i+1}' for i in range(128)])
     with torch.no_grad():
         for data in tqdm(loader):
             data = data.to(FLAGS.device)
@@ -455,7 +457,20 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
             total_loss_dict = update_total_loss(loss, data, target_list, loss_dict, loss_dict_, out_dict, total, correct)
             if FLAGS.task == 'regression': loss_dict, total = total_loss_dict
             else: pred, correct, total = total_loss_dict  
-                
+            
+            # Below loop saves graph embeddings along with pragma values to a csv file 
+            for i in range(1): # TODO: 1 should be replaced by the batch size later
+                iv1 = _get_y_with_target(data, 'pragmas')[i]
+                target_value = _get_y_with_target(data, target_name)[i].item()
+                emb_row = out_dict['emb_P'].cpu().numpy()
+                emb_row_pseudo = out_dict['emb_pseudo_b'].cpu().numpy()
+                # Create a new row as a dictionary
+                new_row = {'kernel_name': _get_y_with_target(data, 'gname')[i]}
+                new_row.update({f'value_{j+1}': iv1[j].item() for j in range(21)})
+                new_row.update({f'embedding_{j+1}': emb_row[0][j] for j in range(64)})
+                new_row.update({f'embedding_{j+1+64}': emb_row_pseudo[0][j] for j in range(64)})
+                #new_row['target_value'] = f"{target_value:.2f}"
+
             for target_name in target_list:
                 if 'inf' in FLAGS.subtask:
                     saver.info(f'{target_name}')
@@ -466,6 +481,8 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
                 for i in range(len(out)):
                     out_value = out[i].item()
                     target_value = _get_y_with_target(data, target_name)[i].item()
+                    new_row[target_name] = f"{target_value:.2f}"
+
                     if FLAGS.encode_log and target_name == 'actual_perf':
                         out_value = 2**(out_value) * (1 / FLAGS.normalizer)
                     if 'inf' in FLAGS.subtask:
@@ -479,7 +496,10 @@ def test(loader, tvt, model, epoch, plot_test = False, test_losses = [-1], csv_d
                     points_dict[target_name]['pred'].append((target_value, out_value))
                     points_dict[target_name]['true'].append((target_value, target_value))
                     points_dict[target_name]['error'].append((target_value, abs(target_value - out_value)))
-                    
+            
+            new_row_df = pd.DataFrame([new_row])
+            df = pd.concat([df, new_row_df], ignore_index=True)
+        df.to_csv('pragmas_embeddings.csv', index=False)  # index=False prevents the dataframe index from being saved as a column
 
     if FLAGS.task != 'class' and FLAGS.plot_pred_points and tvt == 'test' and (plot_test or (test_losses and (total / len(loader)) < min(test_losses))):
         from utils import plot_points_with_subplot, plot_points_with_subplot_sigma
